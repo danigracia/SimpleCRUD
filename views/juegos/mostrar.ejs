@@ -1,0 +1,9 @@
+<p><a href="/juegos"><- Atras</a></p>
+<% if (typeof juego !== 'undefined') { %>
+	<a href="/juegos/editar/<%= juego._id %>">Editar</a>
+	<a href="/juegos/borrar/<%= juego._id %>">Eliminar</a>
+
+	<p>Titulo: <span><%= juego.titulo %></span></p>
+	<p>Año: <span><%= juego.año %></span></p>
+	<p>Plataforma: <span><%= juego.plataforma %></span></p>
+<% } %>

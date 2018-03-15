@@ -1,0 +1,9 @@
+<a href="/juegos/ver/<%= juego._id %>"><- Atras</a>
+<% if (typeof juego !== 'undefined') { %>
+	<form action="/juegos/editar/<%= juego._id %>" method="post">
+		<p>Titulo: <input type="text" name="titulo" value="<%= juego.titulo %>" required></p>
+		<p>Año: <input type="text" name="any" value="<%= juego.año %>" required></p>
+		<p>Plataforma: <input type="text" name="plataforma" value="<%= juego.plataforma %>" required></p>
+		<input type="submit" value="actualizar">
+	</form>
+<% } %>
