@@ -1,0 +1,91 @@
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css"  href="../stylesheets/common.css">
+		<title>Editar</title>
+
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link color-white" href="/">Index </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link color-white" href="/crear">Nuevo </a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container mt-4">
+			<div class="card text-center">
+				<div class="card-header">
+					<h3 class="mb-0">Edición de <%= pelicula.titulo %></h3>
+				</div>
+				<div class="card-body">
+					<% if (typeof pelicula !== 'undefined') { %>
+					<form action="/editar/<%= pelicula._id %>" method="post">
+						<div class="mt-4 col-12 offset-md-3 col-md-7">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td><b><label class="control-label " for="titulo">Titulo</label></b></td>
+										<td><b><label class="control-label " for="año">Año</label></b></td>
+										<td><b><label class="control-label " for="plataforma">Categoria</label></b></td>
+									</tr>
+									<tr>
+										<td><input class="form-control" type="text" name="titulo" value="<%= pelicula.titulo %>" required></td>
+										<td><input  class="form-control" type="text" name="any" value="<%= pelicula.año %>" required></td>
+										<td><select class="form-control" id="categoria" name="categoria">
+											<% if (pelicula.categoria == "Accion"){ %> <option value="Accion" selected>
+											<% }else{ %> <option value="Accion"> <% } %>
+													Accion
+											</option>
+											<% if (pelicula.categoria == "Comedia"){ %> <option value="Comedia" selected>
+											<% }else{ %> <option value="Comedia"> <% } %>
+													Comedia
+											</option>
+											<% if (pelicula.categoria == "Terror"){ %> <option value="Terror" selected>
+											<% }else{ %> <option value="Terror"> <% } %>
+													Terror
+											</option>
+											<% if (pelicula.categoria == "Romantica"){ %> <option value="Romantica" selected>
+											<% }else{ %> <option value="Romantica"> <% } %>
+													Romantica
+											</option>
+											<% if (pelicula.categoria == "Thriller"){ %> <option value="Thriller" selected>
+											<% }else{ %> <option value="Thriller"> <% } %>
+													Thriller
+											</option>
+										</select></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<a class="btn btn-primary" href="/ver/<%= pelicula._id %>">Atras</a>
+						<input class="btn btn-success" type="submit" value="Actualizar">
+					</form>
+					<% } %>
+				</div>
+			</div>
+		</div>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</body>
+</html>

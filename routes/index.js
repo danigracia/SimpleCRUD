@@ -11,13 +11,13 @@ router.get('/', function(req, res, next) {
 	MongoClient.connect(mongoUrl, function(err, client) {
 		if (err) throw err;
 
-		var db = client.db('videoJuegos');
+		var db = client.db('Peliculas');
 
-		db.collection('juegos').find({}).toArray(function (findErr, result) {
+		db.collection('peliculas').find({}).toArray(function (findErr, result) {
 			if (findErr) throw findErr;
 			client.close();
 
-			res.render('juegos/mostrarTodas', { juegos: result});
+			res.render('peliculas/mostrarTodas', { peliculas: result});
 			
 		});
 
@@ -29,14 +29,14 @@ router.get('/ver/:id', function(req, res, next) {
 	MongoClient.connect(mongoUrl, function(err, client) {
 		if (err) throw err;
 
-		var db = client.db('videoJuegos');
+		var db = client.db('Peliculas');
 		var ObjectId = require('mongodb').ObjectId; 
 		var o_id = new ObjectId(req.params.id);
 
-		db.collection('juegos').findOne({"_id" : o_id}, function (findErr, result) {
+		db.collection('peliculas').findOne({"_id" : o_id}, function (findErr, result) {
 			if (findErr) throw findErr;
 			client.close();
-			res.render('juegos/mostrar', {juego: result});
+			res.render('peliculas/mostrar', {pelicula: result});
 		});
 	});
 	
@@ -44,15 +44,15 @@ router.get('/ver/:id', function(req, res, next) {
 
 //Crear
 router.get('/crear', function(req, res, next) {
-	res.render('juegos/crear', { title: 'Express', id: req.params.id});
+	res.render('peliculas/crear', { title: 'Express', id: req.params.id});
 });
 
 router.post('/crear', function(req, res, next) {
 	MongoClient.connect(mongoUrl, function(err, client) {
 		if (err) throw err;
-		var db = client.db("videoJuegos");
-		var myobj = {titulo: req.body.titulo, año: req.body.any, plataforma: req.body.plataforma};
-		db.collection("juegos").insertOne(myobj, function(err, result) {
+		var db = client.db("Peliculas");
+		var myobj = {titulo: req.body.titulo, año: req.body.any, categoria: req.body.categoria};
+		db.collection("peliculas").insertOne(myobj, function(err, result) {
 			if (err) throw err;
 			client.close();
 			res.redirect('/ver/'+myobj._id);
@@ -65,14 +65,14 @@ router.get('/editar/:id', function(req, res, next) {
 	MongoClient.connect(mongoUrl, function(err, client) {
 		if (err) throw err;
 
-		var db = client.db('videoJuegos');
+		var db = client.db('Peliculas');
 		var ObjectId = require('mongodb').ObjectId; 
 		var o_id = new ObjectId(req.params.id);
 
-		db.collection('juegos').findOne({"_id" : o_id}, function (findErr, result) {
+		db.collection('peliculas').findOne({"_id" : o_id}, function (findErr, result) {
 			if (findErr) throw findErr;
 			client.close();
-			res.render('juegos/editar', {juego: result});
+			res.render('peliculas/editar', {pelicula: result});
 		});
 	});
 });
@@ -80,14 +80,14 @@ router.get('/editar/:id', function(req, res, next) {
 router.post('/editar/:id', function(req, res, next) {
 	MongoClient.connect(mongoUrl, function(err, client) {
 		if (err) throw err;
-		var db = client.db("videoJuegos");
+		var db = client.db("Peliculas");
 
 		var ObjectId = require('mongodb').ObjectId; 
 		var o_id = new ObjectId(req.params.id);
 
 		var myquery = { _id: o_id };
-		var newvalues = { $set: {titulo: req.body.titulo, año: req.body.any, plataforma: req.body.plataforma} };
-		db.collection("juegos").updateOne(myquery, newvalues, function(findErr, result) {
+		var newvalues = { $set: {titulo: req.body.titulo, año: req.body.any, categoria: req.body.categoria} };
+		db.collection("peliculas").updateOne(myquery, newvalues, function(findErr, result) {
 			if (findErr) throw findErr;
 			client.close();
 			res.redirect('/ver/' + req.params.id);
@@ -99,14 +99,14 @@ router.post('/editar/:id', function(req, res, next) {
 router.get('/borrar/:id', function(req, res, next) {
 	MongoClient.connect(mongoUrl, function(err, client) {
 		if (err) throw err;
-		var db = client.db("videoJuegos");
+		var db = client.db("Peliculas");
 
 		var ObjectId = require('mongodb').ObjectId; 
 		var o_id = new ObjectId(req.params.id);
 
 		var myquery = { _id: o_id };
 
-		db.collection("juegos").deleteOne(myquery, function(err, obj) {
+		db.collection("peliculas").deleteOne(myquery, function(err, obj) {
 			if (err) throw err;
 			client.close();
 			res.redirect('/');
